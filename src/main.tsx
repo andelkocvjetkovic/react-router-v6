@@ -1,24 +1,41 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { createBrowserRouter, RouterProvider, } from "react-router-dom";
-import Root, { loader as rootLoader } from './routes/root';
+import { createBrowserRouter, RouterProvider, Form } from "react-router-dom";
+import EditContact from './routes/edit';
+import Root from './routes/root'
 import Contact from './routes/contact';
-import ErrorPage from './error-page';
+
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
-    errorElement: <ErrorPage />,
-    loader: rootLoader,
+    loader: Root.loader,
+    action: Root.action,
+    errorElement: null,
     children: [
       {
-        path: 'contacts/:contactId',
-        element: <Contact />
-      }
+        path: ':contentId',
+        element: <Contact />,
+        errorElement: null,
+        loader: Contact.loader,
+        action: Contact.action,
+        children: [
+          {
+            path: 'edit',
+            element: <EditContact />,
+            errorElement: null,
+            loader: EditContact.loader,
+            action: EditContact.action,
+
+          }
+        ]
+      },
+
     ]
-  },
+  }
+
 
 ]);
 
