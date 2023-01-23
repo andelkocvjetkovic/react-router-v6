@@ -1,5 +1,4 @@
-import { Outlet, Link, useLoaderData, Form } from 'react-router-dom'
-import { getContacts, createContact } from '../contacts'
+import { Outlet } from 'react-router-dom'
 
 export async function loader() {
   console.log('root loader');

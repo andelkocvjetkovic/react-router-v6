@@ -5,12 +5,16 @@ import { createBrowserRouter, RouterProvider, Form } from "react-router-dom";
 import EditContact from './routes/edit';
 import Root from './routes/root'
 import Contact from './routes/contact';
+import PageLoader from './routes/page-loader';
 
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+    element:
+      <React.Suspense fallback={<PageLoader />}>
+        <Root />
+      </React.Suspense>,
     loader: Root.loader,
     action: Root.action,
     errorElement: null,
@@ -41,6 +45,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider router={router} fallbackElement={<PageLoader />} />
   </React.StrictMode>,
 )
